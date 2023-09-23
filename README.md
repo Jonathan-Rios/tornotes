@@ -119,38 +119,40 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE.md) pa
   
   ➜ npm install @tanstack/react-table
   ➜ npm i dayjs
-
-  ➜ npm i next-auth
-  ➜ npx prisma init --datasource-provider MySQL
   ➜ npm install react-copy-to-clipboard
 
+  # Instalando shadcn
+  ➜ npx shadcn-ui@latest init
+  ￼
+    ✔ Would you like to use TypeScript (recommended)? … no / yes
+    ✔ Which style would you like to use? › Default
+    ✔ Which color would you like to use as base color? › Slate
+    ✔ Where is your global CSS file? … src/app/globals.css
+    ✔ Would you like to use CSS variables for colors? … no / yes
+    ✔ Where is your tailwind.config.js located? … tailwind.config.js
+    ✔ Configure the import alias for components: … @/components
+    ✔ Configure the import alias for utils: … @/lib/utils
+    ✔ Are you using React Server Components? … no / yes
+    ✔ Write configuration to components.json. Proceed? … yes
+
+    ✔ Writing components.json...
+    ✔ Initializing project...
+    ✔ Installing dependencies...
+
+    Success! Project initialization completed.
+
+  # Comando para aparecer a lista do que quer adicionar
+  npx shadcn-ui@latest add
+
+
+
+
+  #Comandos utilizados, mas foram removidos do projeto
+  ➜ npm i next-auth
+  ➜ npx prisma init --datasource-provider MySQL
   #Criando o mysql no docker local 
   docker run --name mysql -e MYSQL_ROOT_PASSWORD=docker -p 3306:3306 mysql:latest
   DATABASE_URL="mysql://root:docker@localhost:3306/tornotes"
-
-
-# Instalando shadcn
-➜ npx shadcn-ui@latest init
-￼
-✔ Would you like to use TypeScript (recommended)? … no / yes
-✔ Which style would you like to use? › Default
-✔ Which color would you like to use as base color? › Slate
-✔ Where is your global CSS file? … src/app/globals.css
-✔ Would you like to use CSS variables for colors? … no / yes
-✔ Where is your tailwind.config.js located? … tailwind.config.js
-✔ Configure the import alias for components: … @/components
-✔ Configure the import alias for utils: … @/lib/utils
-✔ Are you using React Server Components? … no / yes
-✔ Write configuration to components.json. Proceed? … yes
-
-✔ Writing components.json...
-✔ Initializing project...
-✔ Installing dependencies...
-
-Success! Project initialization completed.
-
-# Comando para aparecer a lista do que quer adicionar
-npx shadcn-ui@latest add
 ```
 
 
