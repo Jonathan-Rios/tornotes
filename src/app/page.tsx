@@ -86,7 +86,7 @@ export default function Page() {
             <p>
               Para dúvidas ou relatórios de problemas relacionados à Aplicação,
               o Usuário pode entrar em contato com o criador da Aplicação em
-              [Inserir Informações de Contato].
+              jonathan.riosousa@gmail.com.
             </p>
 
             <h2 className="mt-4 text-lg font-semibold">
