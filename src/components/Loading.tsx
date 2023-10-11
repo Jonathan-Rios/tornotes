@@ -1,23 +1,23 @@
-"use client";
+'use client'
 
-import { useLoading } from "@/hooks/Loading";
+import { useLoading } from '@/hooks/Loading'
 
 interface ILoadingProps {
-  forceShow?: boolean;
+  forceShow?: boolean
 }
 
 export function Loading({ forceShow = false }) {
-  const { isLoading } = useLoading();
+  const { isLoading } = useLoading()
 
   if (forceShow || isLoading) {
     return (
-      <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
-        <div className="w-16 h-16 border-t-4 border-solid rounded-full border-slate-200 animate-spin">
-          <div className="w-16 h-16 border-t-4 border-solid rounded-full border-slate-200 animate-spin"></div>
+      <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
+        <div className="h-16 w-16 animate-spin rounded-full border-t-4 border-solid border-slate-200">
+          <div className="h-16 w-16 animate-spin rounded-full border-t-4 border-solid border-slate-200"></div>
         </div>
       </div>
-    );
+    )
   } else {
-    return <></>;
+    return <></>
   }
 }

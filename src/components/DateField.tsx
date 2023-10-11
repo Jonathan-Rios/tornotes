@@ -1,18 +1,18 @@
-"use client";
+'use client'
 
-import { cn } from "@/lib/utils";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Button } from "./ui/button";
-import { ptBR } from "date-fns/locale";
+import { cn } from '@/lib/utils'
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
+import { Button } from './ui/button'
+import { ptBR } from 'date-fns/locale'
 
-import { Calendar } from "./ui/calendar";
-import { Calendar as CalendarIcon } from "@phosphor-icons/react";
+import { Calendar } from './ui/calendar'
+import { Calendar as CalendarIcon } from '@phosphor-icons/react'
 
 interface IDateFieldProps {
-  label: string;
-  errorMessage?: string;
-  fieldValue: Date | undefined;
-  onFieldChange: (value: Date | undefined) => void;
+  label: string
+  errorMessage?: string
+  fieldValue: Date | undefined
+  onFieldChange: (value: Date | undefined) => void
 }
 
 export function DateField({
@@ -32,18 +32,18 @@ export function DateField({
 
             <Button
               type="button"
-              variant={"outline"}
+              variant={'outline'}
               className={cn(
-                "text-left font-normal rounded text-slate-800 text-base p-2",
-                !fieldValue && "text-muted-foreground"
+                'rounded p-2 text-left text-base font-normal text-slate-800',
+                !fieldValue && 'text-muted-foreground',
               )}
             >
               {fieldValue ? (
-                Intl.DateTimeFormat("pt-BR", {
-                  weekday: "long",
-                  day: "numeric",
-                  month: "2-digit",
-                  year: "numeric",
+                Intl.DateTimeFormat('pt-BR', {
+                  weekday: 'long',
+                  day: 'numeric',
+                  month: '2-digit',
+                  year: 'numeric',
                 })
                   .format(fieldValue)
                   .replace(/^(.)/, (match) => match.toUpperCase())
@@ -51,7 +51,7 @@ export function DateField({
                 <span>Pick a date</span>
               )}
 
-              <CalendarIcon size={32} className="w-6 h-6 ml-auto opacity-75" />
+              <CalendarIcon size={32} className="ml-auto h-6 w-6 opacity-75" />
             </Button>
           </label>
 
@@ -68,12 +68,12 @@ export function DateField({
           selected={fieldValue}
           onSelect={onFieldChange}
           disabled={(date) =>
-            date > new Date() || date < new Date("1900-01-01")
+            date > new Date() || date < new Date('1900-01-01')
           }
           initialFocus
           locale={ptBR}
         />
       </PopoverContent>
     </Popover>
-  );
+  )
 }

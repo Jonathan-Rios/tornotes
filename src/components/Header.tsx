@@ -1,18 +1,18 @@
-import Image from "next/image";
+import Image from 'next/image'
 
-import logoImg from "@/assets/images/logo.svg";
-import Link from "next/link";
+import logoImg from '@/assets/images/logo.svg'
+import Link from 'next/link'
 
 export function Header() {
   return (
-    <div className="flex flex-col items-center justify-center w-full mb-4">
+    <div className="mb-4 flex w-full flex-col items-center justify-center">
       <Link href="/home">
         <Image
           src={logoImg}
           alt="TorNotes"
-          className="lg:w-[280px] w-[220px] lg:mx-8 "
+          className="w-[220px] lg:mx-8 lg:w-[280px] "
         />
       </Link>
     </div>
-  );
+  )
 }

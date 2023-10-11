@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   ColumnDef,
@@ -6,7 +6,7 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table'
 
 import {
   Table,
@@ -15,30 +15,30 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table'
 
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu'
 
-import { useState } from "react";
-import { Button } from "./ui/button";
-import { cn } from "@/lib/utils";
-import { SlidersHorizontal } from "@phosphor-icons/react";
-import { Skeleton } from "./ui/skeleton";
+import { useState } from 'react'
+import { Button } from './ui/button'
+import { cn } from '@/lib/utils'
+import { SlidersHorizontal } from '@phosphor-icons/react'
+import { Skeleton } from './ui/skeleton'
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
   hiddenColumns?: {
-    [key: string]: boolean;
-  };
+    [key: string]: boolean
+  }
   columnTranslations?: {
-    [key: string]: string;
-  };
+    [key: string]: string
+  }
 }
 
 export function DataTable<TData, TValue>({
@@ -48,7 +48,7 @@ export function DataTable<TData, TValue>({
   columnTranslations,
 }: DataTableProps<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] =
-    useState<VisibilityState>(hiddenColumns);
+    useState<VisibilityState>(hiddenColumns)
 
   const table = useReactTable({
     data,
@@ -58,11 +58,11 @@ export function DataTable<TData, TValue>({
     state: {
       columnVisibility,
     },
-  });
+  })
 
   return (
     <div>
-      <div className="flex items-end justify-between w-full">
+      <div className="flex w-full items-end justify-between">
         <h1 className="m-2 text-lg font-semibold text-primary-foreground">
           Últimos registros
         </h1>
@@ -72,7 +72,7 @@ export function DataTable<TData, TValue>({
             <DropdownMenuTrigger asChild>
               <Button
                 variant="default"
-                className="w-32 h-12 gap-2 ml-auto font-bold bg-indigo-500 rounded hover:bg-indigo-400"
+                className="ml-auto h-12 w-32 gap-2 rounded bg-indigo-500 font-bold hover:bg-indigo-400"
               >
                 Colunas
                 <SlidersHorizontal size={24} />
@@ -84,10 +84,10 @@ export function DataTable<TData, TValue>({
                 .getAllColumns()
                 .filter((column) => column.getCanHide())
                 .map((column) => {
-                  const columnName = column.id;
+                  const columnName = column.id
                   const translatedColumnName = columnTranslations
                     ? columnTranslations[columnName]
-                    : columnName; // Usar o nome original se não houver tradução
+                    : columnName // Usar o nome original se não houver tradução
 
                   return (
                     <DropdownMenuCheckboxItem
@@ -100,14 +100,14 @@ export function DataTable<TData, TValue>({
                     >
                       {translatedColumnName}
                     </DropdownMenuCheckboxItem>
-                  );
+                  )
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </div>
 
-      <div className="border-[2px] rounded border-slate-700">
+      <div className="rounded border-[2px] border-slate-700">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -116,16 +116,16 @@ export function DataTable<TData, TValue>({
                   return (
                     <TableHead
                       key={header.id}
-                      className="text-xs font-bold uppercase border-none"
+                      className="border-none text-xs font-bold uppercase"
                     >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
-                  );
+                  )
                 })}
               </TableRow>
             ))}
@@ -135,20 +135,20 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row, index) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                   className="border-none"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
                       className={cn(
-                        "text-md text-slate-200 bg-transparent",
-                        index % 2 === 0 && "bg-zinc-800"
+                        'text-md bg-transparent text-slate-200',
+                        index % 2 === 0 && 'bg-zinc-800',
                       )}
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -168,14 +168,14 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
     </div>
-  );
+  )
 }
 
 export function DataTableSkeleton() {
   return (
-    <div className="flex flex-col w-full gap-6">
-      <Skeleton className="w-32 h-12 ml-auto rounded-sm bg-slate-600" />
-      <Skeleton className="w-full h-[400px] rounded-sm bg-slate-600" />
+    <div className="flex w-full flex-col gap-6">
+      <Skeleton className="ml-auto h-12 w-32 rounded-sm bg-slate-600" />
+      <Skeleton className="h-[400px] w-full rounded-sm bg-slate-600" />
     </div>
-  );
+  )
 }

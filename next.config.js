@@ -4,8 +4,8 @@ const nextConfig = {
     API_URL: process.env.API_URL,
   },
   images: {
-    domains: ["lh3.googleusercontent.com"],
+    domains: ['lh3.googleusercontent.com'],
   },
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

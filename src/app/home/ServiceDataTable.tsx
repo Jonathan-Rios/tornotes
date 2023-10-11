@@ -1,27 +1,27 @@
-import { DataTable } from "@/components/DataTable";
+import { DataTable } from '@/components/DataTable'
 
 interface ServiceDataTableProps {
   data: {
-    columns: any[];
-    rows: any[];
-  };
+    columns: any[]
+    rows: any[]
+  }
 }
 
 export function ServiceDataTable({ data }: ServiceDataTableProps) {
-  const { columns, rows } = data;
+  const { columns, rows } = data
 
   const columnTranslations = {
-    date: "Registro",
-    noteCode: "Código da Nota",
-    client: "Cliente",
-    serviceDescription: "Descrição do Serviço",
-    workedDate: "Data de Realização",
-    materials: "Materiais",
-    laborCost: "Mão de obra",
-    total: "Total",
-    payed: "Pago",
-    imageLink: "Link da Imagem",
-  };
+    date: 'Registro',
+    noteCode: 'Código da Nota',
+    client: 'Cliente',
+    serviceDescription: 'Descrição do Serviço',
+    workedDate: 'Data de Realização',
+    materials: 'Materiais',
+    laborCost: 'Mão de obra',
+    total: 'Total',
+    payed: 'Pago',
+    imageLink: 'Link da Imagem',
+  }
 
   return (
     <>
@@ -44,7 +44,7 @@ export function ServiceDataTable({ data }: ServiceDataTableProps) {
         <></>
       )}
     </>
-  );
+  )
 }
 
 {

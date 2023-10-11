@@ -1,76 +1,74 @@
-"use client";
+'use client'
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from 'react'
 
 interface LocalStorageProviderProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 interface Config {
-  sheetId: string;
-  folderId: string;
+  sheetId: string
+  folderId: string
 }
 
 interface LocalStorageContextData {
-  config: Config | null;
-  saveLocalStorageConfig(data: Config): void;
+  config: Config | null
+  saveLocalStorageConfig(data: Config): void
 
-  saveLocalStorageAcceptTerm(): void;
-  getLocalStorageAcceptTerm(): boolean;
-  loadLocalStorageConfig(): void;
+  saveLocalStorageAcceptTerm(): void
+  getLocalStorageAcceptTerm(): boolean
+  loadLocalStorageConfig(): void
 
-  isConfigValid(): boolean;
+  isConfigValid(): boolean
 }
 
 const LocalStorageContext = createContext<LocalStorageContextData>(
-  {} as LocalStorageContextData
-);
+  {} as LocalStorageContextData,
+)
 
 const LocalStorageProvider: React.FC<LocalStorageProviderProps> = ({
   children,
 }) => {
   useEffect(() => {
-    loadLocalStorageConfig();
-  }, []);
+    loadLocalStorageConfig()
+  }, [])
 
   function loadLocalStorageConfig() {
-    const configs = getLocalStorageConfig();
+    const configs = getLocalStorageConfig()
 
     if (configs) {
-      setConfig(configs);
+      setConfig(configs)
     }
   }
 
-  const [config, setConfig] = useState<Config | null>(null);
+  const [config, setConfig] = useState<Config | null>(null)
 
   function getLocalStorageConfig() {
-    const configs = JSON.parse(
-      localStorage.getItem("@Tornotes:config") || "{}"
-    );
+    const configs = JSON.parse(localStorage.getItem('@Tornotes:config') || '{}')
 
-    return configs;
+    return configs
   }
 
   function isConfigValid() {
     if (!config?.folderId || !config?.sheetId) {
-      return false;
+      return false
     }
 
-    return true;
+    return true
   }
 
   function saveLocalStorageConfig(data: Config) {
-    localStorage.setItem("@Tornotes:config", JSON.stringify(data));
+    localStorage.setItem('@Tornotes:config', JSON.stringify(data))
   }
 
   function getLocalStorageAcceptTerm() {
-    const configs = JSON.parse(localStorage.getItem("@Tornotes:term") || "{}");
+    const configs = JSON.parse(localStorage.getItem('@Tornotes:term') || '{}')
 
-    return configs?.accept || false;
+    return configs?.accept || false
   }
 
   function saveLocalStorageAcceptTerm() {
-    localStorage.setItem("@Tornotes:term", JSON.stringify({ accept: true }));
+    localStorage.setItem('@Tornotes:term', JSON.stringify({ accept: true }))
   }
 
   return (
@@ -88,19 +86,19 @@ const LocalStorageProvider: React.FC<LocalStorageProviderProps> = ({
     >
       {children}
     </LocalStorageContext.Provider>
-  );
-};
+  )
+}
 
 function useLocalStorage(): LocalStorageContextData {
-  const context = useContext(LocalStorageContext);
+  const context = useContext(LocalStorageContext)
 
   if (!context) {
     throw new Error(
-      "useLocalStorage must be used within a LocalStorageProvider"
-    );
+      'useLocalStorage must be used within a LocalStorageProvider',
+    )
   }
 
-  return context;
+  return context
 }
 
-export { LocalStorageProvider, useLocalStorage };
+export { LocalStorageProvider, useLocalStorage }

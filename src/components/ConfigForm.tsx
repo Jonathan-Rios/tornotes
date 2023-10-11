@@ -1,102 +1,102 @@
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useEffect, useState } from "react";
-import { TextField } from "./TextField";
-import { Copy, FloppyDisk } from "@phosphor-icons/react";
-import { toast } from "react-toastify";
+import { Controller, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import { useEffect, useState } from 'react'
+import { TextField } from './TextField'
+import { Copy, FloppyDisk } from '@phosphor-icons/react'
+import { toast } from 'react-toastify'
 
-import imgGoogleDrive from "@/assets/images/example-google-drive.png";
-import imgGoogleSheets from "@/assets/images/example-google-sheets.png";
-import imgShareAccess from "@/assets/images/share-access.png";
-import Image from "next/image";
+import imgGoogleDrive from '@/assets/images/example-google-drive.png'
+import imgGoogleSheets from '@/assets/images/example-google-sheets.png'
+import imgShareAccess from '@/assets/images/share-access.png'
+import Image from 'next/image'
 
-import { useLocalStorage } from "@/hooks/LocalStorage";
-import { api } from "@/lib/axios";
-import { useLoading } from "@/hooks/Loading";
+import { useLocalStorage } from '@/hooks/LocalStorage'
+import { api } from '@/lib/axios'
+import { useLoading } from '@/hooks/Loading'
 
 const registerFormSchema = z.object({
   sheetId: z.string(),
   folderId: z.string(),
-});
+})
 
-export type RegisterFormData = z.infer<typeof registerFormSchema>;
+export type RegisterFormData = z.infer<typeof registerFormSchema>
 
 export function ConfigForm() {
-  const { setIsLoading } = useLoading();
+  const { setIsLoading } = useLoading()
 
   const { loadLocalStorageConfig, config, saveLocalStorageConfig } =
-    useLocalStorage();
+    useLocalStorage()
 
   const [howConfigureIsVisible, setHowConfigureIsVisible] =
-    useState<boolean>(false);
+    useState<boolean>(false)
 
   const RegisterForm = useForm<RegisterFormData>({
     resolver: zodResolver(registerFormSchema),
 
     defaultValues: {
-      sheetId: "",
-      folderId: "",
+      sheetId: '',
+      folderId: '',
     },
-  });
+  })
 
   const {
     handleSubmit,
     control,
     formState: { errors, isSubmitting },
     setValue,
-  } = RegisterForm;
+  } = RegisterForm
 
   useEffect(() => {
     if (config) {
-      setValue("sheetId", config?.sheetId || "");
-      setValue("folderId", config?.folderId || "");
+      setValue('sheetId', config?.sheetId || '')
+      setValue('folderId', config?.folderId || '')
     }
-  }, [config, setValue]);
+  }, [config, setValue])
 
   async function handleRegister(data: RegisterFormData) {
-    setIsLoading(true);
+    setIsLoading(true)
 
     const formattedData = {
       ...data,
-    };
+    }
 
-    saveLocalStorageConfig(formattedData);
+    saveLocalStorageConfig(formattedData)
 
     await api
-      .post("/sheets", {
+      .post('/sheets', {
         sheetId: config?.sheetId,
       })
       .then(({ data }) => {
         if (data.success === true) {
-          toast.success("Configuração salva com sucesso", {
-            position: "bottom-right",
-          });
+          toast.success('Configuração salva com sucesso', {
+            position: 'bottom-right',
+          })
         } else {
-          toast.error("Erro ao salvar configuração", {
-            position: "bottom-right",
-          });
+          toast.error('Erro ao salvar configuração', {
+            position: 'bottom-right',
+          })
         }
       })
       .catch((error) => {
-        console.log(`-error:`, error);
-        toast.error("Erro ao salvar configuração", {
-          position: "bottom-right",
-        });
+        console.log(`-error:`, error)
+        toast.error('Erro ao salvar configuração', {
+          position: 'bottom-right',
+        })
       })
       .finally(() => {
-        setIsLoading(false);
-      });
+        setIsLoading(false)
+      })
 
-    loadLocalStorageConfig();
+    loadLocalStorageConfig()
   }
 
   return (
     <form
       onSubmit={handleSubmit(handleRegister)}
-      className="flex flex-col items-end w-full gap-4 p-4 border-2 rounded-sm border-muted-foreground"
+      className="flex w-full flex-col items-end gap-4 rounded-sm border-2 border-muted-foreground p-4"
     >
-      <div className="flex flex-col items-center justify-between w-full gap-4 lg:flex-row">
+      <div className="flex w-full flex-col items-center justify-between gap-4 lg:flex-row">
         <ol className="space-y-1 text-sm font-bold text-slate-100">
           <h3 className="text-lg font-bold text-amber-500">
             Configure a aplicação.
@@ -111,14 +111,14 @@ export function ConfigForm() {
         <button
           type="button"
           onClick={() => setHowConfigureIsVisible(!howConfigureIsVisible)}
-          className="flex items-center justify-center w-full h-8 p-4 ml-auto font-bold text-white transition-colors rounded bg-slate-600 lg:w-56 hover:bg-slate-500 "
+          className="ml-auto flex h-8 w-full items-center justify-center rounded bg-slate-600 p-4 font-bold text-white transition-colors hover:bg-slate-500 lg:w-56 "
         >
           Como configurar?
         </button>
       </div>
 
       {howConfigureIsVisible && (
-        <div className="flex flex-col max-w-full break-word">
+        <div className="break-word flex max-w-full flex-col">
           <h3 className="font-bold text-orange-400 ">
             ID da Planilha no Google Sheets:
           </h3>
@@ -131,7 +131,7 @@ export function ConfigForm() {
                 }
               </li>
               <li>
-                Copie esse ID da barra de endereços e cole-o no campo{" "}
+                Copie esse ID da barra de endereços e cole-o no campo{' '}
                 <strong>código da planilha</strong>.
               </li>
             </ol>
@@ -157,7 +157,7 @@ export function ConfigForm() {
               <p>{`O ID estará entre as barras "/folders/" e "/view".`}</p>
               <p>{`Exemplo, o link pode ser "drive.google.com/drive/folders/abcdefgh123456/view". Nesse caso, "abcdefgh123456" é o ID da pasta.`}</p>
               <li>
-                Copie esse ID da barra de endereços e cole-o no campo{" "}
+                Copie esse ID da barra de endereços e cole-o no campo{' '}
                 <strong>código da pasta do google drive</strong>.
               </li>
             </ol>
@@ -177,11 +177,11 @@ export function ConfigForm() {
           <div className="space-y-1">
             <p>
               {
-                "Para compartilhar o acesso de editor em uma planilha do Google, siga estas etapas:"
+                'Para compartilhar o acesso de editor em uma planilha do Google, siga estas etapas:'
               }
             </p>
             <ol className="ml-6 list-decimal">
-              <li>{"Abrir a planilha no Google Sheets."}</li>
+              <li>{'Abrir a planilha no Google Sheets.'}</li>
               <li>
                 {
                   'Clique no botão "Compartilhar" no canto superior direito da tela.'
@@ -197,14 +197,14 @@ export function ConfigForm() {
             </ol>
             <p>
               {
-                "Para compartilhar o acesso a uma pasta no Google Drive, siga estas etapas:"
+                'Para compartilhar o acesso a uma pasta no Google Drive, siga estas etapas:'
               }
             </p>
             <ol className="ml-6 list-decimal">
-              <li>{"Acesse o Google Drive."}</li>
+              <li>{'Acesse o Google Drive.'}</li>
               <li>
                 {
-                  "Clique com o botão direito do mouse na pasta que deseja compartilhar."
+                  'Clique com o botão direito do mouse na pasta que deseja compartilhar.'
                 }
               </li>
               <li>{'Selecione a opção "Compartilhar" no menu.'}</li>
@@ -228,12 +228,12 @@ export function ConfigForm() {
         </div>
       )}
 
-      <div className="flex flex-col w-full gap-4">
+      <div className="flex w-full flex-col gap-4">
         <div className="w-full">
           <Controller
             name="sheetId"
             control={control}
-            defaultValue={""}
+            defaultValue={''}
             render={({ field }) => (
               <TextField
                 label="Código da planilha"
@@ -254,7 +254,7 @@ export function ConfigForm() {
           <Controller
             name="folderId"
             control={control}
-            defaultValue={""}
+            defaultValue={''}
             render={({ field }) => (
               <TextField
                 label="Código da pasta"
@@ -273,26 +273,26 @@ export function ConfigForm() {
         </div>
       </div>
 
-      <div className="flex flex-col items-end w-full gap-4 lg:flex-row">
+      <div className="flex w-full flex-col items-end gap-4 lg:flex-row">
         <div className="w-full">
-          <h3 className="mb-1 text-sm font-semibold text-slate-300 whitespace-nowrap">
+          <h3 className="mb-1 whitespace-nowrap text-sm font-semibold text-slate-300">
             E-mail do tornotes:
           </h3>
-          <h3 className="mb-1 text-xs font-semibold lg:hidden text-slate-300 whitespace-nowrap">
+          <h3 className="mb-1 whitespace-nowrap text-xs font-semibold text-slate-300 lg:hidden">
             spreadsheet@tornotes.iam.gserviceaccount.com
           </h3>
 
           <button
             type="button"
-            className="flex items-center justify-center w-full h-10 gap-2 px-4 break-words whitespace-pre transition-colors rounded bg-cyan-700 hover:bg-cyan-600"
+            className="flex h-10 w-full items-center justify-center gap-2 whitespace-pre break-words rounded bg-cyan-700 px-4 transition-colors hover:bg-cyan-600"
             onClick={() => {
               navigator.clipboard.writeText(
-                "spreadsheet@tornotes.iam.gserviceaccount.com"
-              );
+                'spreadsheet@tornotes.iam.gserviceaccount.com',
+              )
 
-              toast.info("E-mail copiado", {
-                position: "bottom-right",
-              });
+              toast.info('E-mail copiado', {
+                position: 'bottom-right',
+              })
             }}
           >
             Copiar o email
@@ -305,7 +305,7 @@ export function ConfigForm() {
 
         <button
           type="submit"
-          className="flex items-center justify-center lg:w-[20%] w-full gap-2 h-10 font-bold transition-colors bg-emerald-500 rounded hover:bg-emerald-600"
+          className="flex h-10 w-full items-center justify-center gap-2 rounded bg-emerald-500 font-bold transition-colors hover:bg-emerald-600 lg:w-[20%]"
         >
           {!isSubmitting ? (
             <>
@@ -313,10 +313,10 @@ export function ConfigForm() {
               <FloppyDisk size={24} />
             </>
           ) : (
-            "Registrando..."
+            'Registrando...'
           )}
         </button>
       </div>
     </form>
-  );
+  )
 }

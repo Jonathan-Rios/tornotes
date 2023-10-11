@@ -1,59 +1,77 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { api } from "@/lib/axios";
-import { DataTableSkeleton } from "@/components/DataTable";
-import { Header } from "@/components/Header";
-import { useEffect, useState } from "react";
-import { ConfigForm } from "@/components/ConfigForm";
-import { GearSix, PencilSimpleLine } from "@phosphor-icons/react";
-import { useLocalStorage } from "@/hooks/LocalStorage";
-import { ServiceDataTable } from "./ServiceDataTable";
+import Link from 'next/link'
+import { api } from '@/lib/axios'
+import { DataTableSkeleton } from '@/components/DataTable'
+import { Header } from '@/components/Header'
+import { useEffect, useState } from 'react'
+import { ConfigForm } from '@/components/ConfigForm'
+import {
+  GearSix,
+  PencilSimpleLine,
+  MagnifyingGlass,
+} from '@phosphor-icons/react'
+import { useLocalStorage } from '@/hooks/LocalStorage'
+import { ServiceDataTable } from './ServiceDataTable'
+import { TextField } from '@/components/TextField'
 
 interface SheetsData {
-  columns: any[];
-  rows: any[];
+  columns: any[]
+  rows: any[]
 }
 
 export default function Page() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { config, isConfigValid } = useLocalStorage();
-  const [configIsVisible, setConfigIsVisible] = useState<boolean>(false);
-  const [sheetsData, setSheetsData] = useState<SheetsData>();
-
-  useEffect(() => {}, [config?.sheetId]);
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const { config, isConfigValid } = useLocalStorage()
+  const [configIsVisible, setConfigIsVisible] = useState<boolean>(false)
+  const [sheetsData, setSheetsData] = useState<SheetsData>()
 
   useEffect(() => {
     async function loadTornotes() {
-      setIsLoading(true);
+      setIsLoading(true)
       await api
         .get(`/tornotes?sheetId=${config?.sheetId}`)
         .then((res) => {
-          setSheetsData(res.data);
+          setSheetsData(res.data)
         })
         .finally(() => {
-          setIsLoading(false);
-        });
+          setIsLoading(false)
+        })
     }
 
     if (!isConfigValid()) {
-      setConfigIsVisible(true);
-      setIsLoading(false);
+      setConfigIsVisible(true)
+      setIsLoading(false)
     } else {
-      setConfigIsVisible(false);
-      loadTornotes();
+      setConfigIsVisible(false)
+      loadTornotes()
     }
-  }, [config?.sheetId, isConfigValid]);
+  }, [config?.sheetId, isConfigValid])
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-start lg:w-[1280px] p-4 lg:p-8 w-full">
+    <div className="flex w-full flex-1 flex-col items-center justify-start p-4 lg:w-[1280px] lg:p-8">
       <Header />
 
-      <div className="flex items-center justify-end w-full gap-6 mb-6">
+      {/*       <div className="mb-6 flex w-full items-end gap-6">
+        <TextField
+          label="Pesquisar"
+          placeholder="Pesquisar"
+          className="flex w-full "
+        />
+
+        <button
+          onClick={() => setConfigIsVisible(!configIsVisible)}
+          className="flex h-10 items-center justify-center rounded bg-slate-600 p-4 font-bold text-zinc-500 transition-colors hover:bg-slate-700"
+        >
+          <MagnifyingGlass size={24} weight="fill" className="fill-white" />
+        </button>
+      </div> */}
+
+      <div className="mb-6 flex w-full items-center justify-end gap-6">
         {isConfigValid() && (
           <Link
             href="/register"
-            className="lg:w-[200px] w-full h-12 p-4 gap-2 flex items-center justify-center bg-orange-400 rounded hover:bg-orange-300 text-zinc-900 font-bold transition-colors"
+            className="flex h-12 w-full items-center justify-center gap-2 rounded bg-orange-400 p-4 font-bold text-zinc-900 transition-colors hover:bg-orange-300 lg:w-[200px]"
           >
             <span className="text-md">Novo registro</span>
             <PencilSimpleLine size={24} />
@@ -62,19 +80,19 @@ export default function Page() {
 
         <button
           onClick={() => setConfigIsVisible(!configIsVisible)}
-          className="flex items-center justify-center h-12 p-4 font-bold transition-colors rounded bg-slate-600 hover:bg-slate-700 text-zinc-500"
+          className="flex h-12 items-center justify-center rounded bg-slate-600 p-4 font-bold text-zinc-500 transition-colors hover:bg-slate-700"
         >
           <GearSix size={24} weight="fill" className="fill-white" />
         </button>
       </div>
 
       {configIsVisible && (
-        <div className="flex w-full mb-6 ">
+        <div className="mb-6 flex w-full ">
           <ConfigForm />
         </div>
       )}
 
-      <div className="flex flex-col items-center justify-start w-full gap-4">
+      <div className="flex w-full flex-col items-center justify-start gap-4">
         <div className="w-full">
           {isLoading ? (
             <DataTableSkeleton />
@@ -86,5 +104,5 @@ export default function Page() {
         </div>
       </div>
     </div>
-  );
+  )
 }

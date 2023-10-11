@@ -1,47 +1,47 @@
-"use client";
+'use client'
 
-import Image from "next/image";
+import Image from 'next/image'
 
-import logoImg from "@/assets/images/logo.svg";
-import Link from "next/link";
-import { useLocalStorage } from "@/hooks/LocalStorage";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useLoading } from "@/hooks/Loading";
-import { Loading } from "@/components/Loading";
+import logoImg from '@/assets/images/logo.svg'
+import Link from 'next/link'
+import { useLocalStorage } from '@/hooks/LocalStorage'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useLoading } from '@/hooks/Loading'
+import { Loading } from '@/components/Loading'
 
 export default function Page() {
-  const { setIsLoading } = useLoading();
-  const [acceptTerm, setAcceptTerm] = useState<boolean>(true);
-  const { push } = useRouter();
+  const { setIsLoading } = useLoading()
+  const [acceptTerm, setAcceptTerm] = useState<boolean>(true)
+  const { push } = useRouter()
   const { getLocalStorageAcceptTerm, saveLocalStorageAcceptTerm } =
-    useLocalStorage();
+    useLocalStorage()
 
   useEffect(() => {
-    const term = getLocalStorageAcceptTerm();
-    setAcceptTerm(term);
+    const term = getLocalStorageAcceptTerm()
+    setAcceptTerm(term)
 
     if (term) {
-      push("/home");
+      push('/home')
     }
-  }, [getLocalStorageAcceptTerm, push, setIsLoading]);
+  }, [getLocalStorageAcceptTerm, push, setIsLoading])
 
   function handleAcceptTerm() {
-    saveLocalStorageAcceptTerm();
-    push("/home");
+    saveLocalStorageAcceptTerm()
+    push('/home')
   }
 
   if (!acceptTerm) {
     return (
       <div className="flex flex-col items-center justify-center ">
-        <div className="flex flex-col items-center justify-center p-4 lg:px-8 lg:py-12 bg-zinc-900">
+        <div className="flex flex-col items-center justify-center bg-zinc-900 p-4 lg:px-8 lg:py-12">
           <Image
             src={logoImg}
             alt="TorNotes"
-            className="lg:w-[320px] w-[220px] mb-4"
+            className="mb-4 w-[220px] lg:w-[320px]"
           />
 
-          <div className="lg:max-w-[1280px] w-full lg:px-8 lg:py-4 p-4 bg-zinc-950 rounded shadow-md">
+          <div className="w-full rounded bg-zinc-950 p-4 shadow-md lg:max-w-[1280px] lg:px-8 lg:py-4">
             <h1 className="mb-4 text-2xl font-semibold">
               Termo de Aceite de Responsabilidade
             </h1>
@@ -104,28 +104,28 @@ export default function Page() {
             </p>
           </div>
 
-          <Link href="/home" className="flex w-full mt-4">
+          <Link href="/home" className="mt-4 flex w-full">
             <button
               type="button"
               onClick={handleAcceptTerm}
-              className="px-4 py-2 m-auto font-semibold text-white whitespace-pre-wrap bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="m-auto whitespace-pre-wrap rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
               Confirmar aceite e acessar aplicação
             </button>
           </Link>
         </div>
       </div>
-    );
+    )
   } else {
     return (
-      <div className="flex flex-col items-center justify-center h-screen">
+      <div className="flex h-screen flex-col items-center justify-center">
         <Image
           src={logoImg}
           alt="TorNotes"
-          className="lg:w-[420px] w-[320px] mb-4"
+          className="mb-4 w-[320px] lg:w-[420px]"
         />
         <Loading forceShow />
       </div>
-    );
+    )
   }
 }
