@@ -144,8 +144,12 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE.md) pa
   # Comando para aparecer a lista do que quer adicionar
   npx shadcn-ui@latest add
 
+  ➜ npm i -D eslint @rocketseat/eslint-config
+    # Adicione "@rocketseat/eslint-config/next" no .eslintrc.cjs dentro de extends.
+    # Mais detalhes de como configurar: https://github.com/Rocketseat/eslint-config-rocketseat
 
-
+  ➜ npm install prettier prettier-plugin-tailwindcss -D
+    # Crie e configure do zero o arquivo prettier.config.js
 
   #Comandos utilizados, mas foram removidos do projeto
   ➜ npm i next-auth

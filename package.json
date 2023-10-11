@@ -27,7 +27,6 @@
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",
-    "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",
     "googleapis": "^123.0.0",
     "lucide-react": "^0.263.1",
@@ -48,6 +47,10 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@types/uuid": "^9.0.2"
+    "@rocketseat/eslint-config": "^2.1.0",
+    "@types/uuid": "^9.0.2",
+    "eslint": "^8.51.0",
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.5"
   }
 }
