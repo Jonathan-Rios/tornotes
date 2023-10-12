@@ -107,6 +107,7 @@ export async function GET(request: Request, response: Response) {
       },
       {
         accessorKey: 'workedDate',
+        align: 'text-center',
       },
       {
         accessorKey: 'materials',

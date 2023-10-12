@@ -1,4 +1,5 @@
 import { DataTable } from '@/components/DataTable'
+import { Eye, MagnifyingGlass } from '@phosphor-icons/react'
 
 interface ServiceDataTableProps {
   data: {
@@ -21,13 +22,45 @@ export function ServiceDataTable({ data }: ServiceDataTableProps) {
     total: 'Total',
     payed: 'Pago',
     imageLink: 'Link da Imagem',
+    actions: 'Ações',
   }
+
+  const formattedColumns = [
+    ...columns.map((column) => {
+      return {
+        ...column,
+        header: () => (
+          <div className={column.align || 'text-left'}>{column.header}</div>
+        ),
+        cell: ({ row }: { row: any }) => (
+          <div className={column.align || 'text-left'}>
+            {row.original[column.accessorKey]}
+          </div>
+        ),
+      }
+    }),
+    {
+      header: () => <div className="text-center">Visualizar</div>,
+      accessorKey: 'actions',
+      cell: () => (
+        <div className="text-center">
+          <button className="group">
+            <MagnifyingGlass
+              size={24}
+              weight="bold"
+              className="fill-indigo-400 transition ease-in group-hover:fill-indigo-300"
+            />
+          </button>
+        </div>
+      ),
+    },
+  ]
 
   return (
     <>
       {columns && rows ? (
         <DataTable
-          columns={columns}
+          columns={formattedColumns}
           data={rows}
           hiddenColumns={{
             date: false,

@@ -151,12 +151,16 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE.md) pa
   ➜ npm install prettier prettier-plugin-tailwindcss -D
     # Crie e configure do zero o arquivo prettier.config.js
 
+   
   #Comandos utilizados, mas foram removidos do projeto
   ➜ npm i next-auth
   ➜ npx prisma init --datasource-provider MySQL
   #Criando o mysql no docker local 
   docker run --name mysql -e MYSQL_ROOT_PASSWORD=docker -p 3306:3306 mysql:latest
   DATABASE_URL="mysql://root:docker@localhost:3306/tornotes"
+
+
+
 ```
 
 

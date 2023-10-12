@@ -2,7 +2,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useEffect, useState } from 'react'
-import { TextField } from './TextField'
+import { TextField } from '@/components/TextField'
 import { Copy, FloppyDisk } from '@phosphor-icons/react'
 import { toast } from 'react-toastify'
 
