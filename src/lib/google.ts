@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import dayjs from 'dayjs'
 import { google } from 'googleapis'
 import { prisma } from './prisma'
@@ -27,8 +29,6 @@ export async function getGoogleOAuthToken(userId: string) {
   const isTokenExpired = dayjs(account.expires_at * 1000).isBefore(new Date())
 
   if (isTokenExpired) {
-    const teste = await auth.refreshAccessToken()
-
     const { credentials } = await auth.refreshAccessToken()
 
     const {

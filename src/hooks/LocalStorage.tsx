@@ -1,6 +1,12 @@
 'use client'
 
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 
 interface LocalStorageProviderProps {
   children: React.ReactNode
@@ -29,17 +35,17 @@ const LocalStorageContext = createContext<LocalStorageContextData>(
 const LocalStorageProvider: React.FC<LocalStorageProviderProps> = ({
   children,
 }) => {
-  useEffect(() => {
-    loadLocalStorageConfig()
-  }, [])
-
-  function loadLocalStorageConfig() {
+  const loadLocalStorageConfig = useCallback(() => {
     const configs = getLocalStorageConfig()
 
     if (configs) {
       setConfig(configs)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    loadLocalStorageConfig()
+  }, [loadLocalStorageConfig])
 
   const [config, setConfig] = useState<Config | null>(null)
 

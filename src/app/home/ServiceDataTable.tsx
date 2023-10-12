@@ -46,10 +46,3 @@ export function ServiceDataTable({ data }: ServiceDataTableProps) {
     </>
   )
 }
-
-{
-  /* <h2 className="my-40 font-bold text-center text-white">
-          Nenhum registro encontrado. <br /> Por favor, verifique se a planilha
-          está corretamente configurada.
-        </h2> */
-}
