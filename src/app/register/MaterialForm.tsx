@@ -1,7 +1,7 @@
 'use client'
 
 import { TextField } from '@/components/TextField'
-import { Trash, PlusCircle, Copy } from '@phosphor-icons/react'
+import { Trash, PlusCircle } from '@phosphor-icons/react'
 import { v4 as uuidv4 } from 'uuid'
 
 import { Controller, UseFormReturn } from 'react-hook-form'

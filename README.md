@@ -143,7 +143,8 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE.md) pa
 
   # Comando para aparecer a lista do que quer adicionar
   npx shadcn-ui@latest add
-
+  npx shadcn-ui@latest add dialog
+￼
   ➜ npm i -D eslint @rocketseat/eslint-config
     # Adicione "@rocketseat/eslint-config/next" no .eslintrc.cjs dentro de extends.
     # Mais detalhes de como configurar: https://github.com/Rocketseat/eslint-config-rocketseat

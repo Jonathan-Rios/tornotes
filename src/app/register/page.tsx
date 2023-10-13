@@ -26,7 +26,6 @@ import { DateField } from '@/components/DateField'
 import { currencyBRLFormat } from '@/utils/format'
 import { api } from '@/lib/axios'
 import { UploadFile } from '@/components/UploadFile'
-import { ConfigForm } from '@/components/ConfigForm'
 import { useLocalStorage } from '@/hooks/LocalStorage'
 import { useLoading } from '@/hooks/Loading'
 import { toast } from 'react-toastify'
@@ -115,8 +114,7 @@ export default function Register() {
         const formattedTotal = currencyBRLFormat.format(
           Number(value) * Number(quantity),
         )
-
-        if (index > 1) {
+        if (index > 0) {
           resultText += '\n\n'
         }
 
@@ -138,7 +136,7 @@ export default function Register() {
         const formattedTotal = currencyBRLFormat.format(
           Number(value) * Number(quantity),
         )
-        if (index > 1) {
+        if (index > 0) {
           resultText += '\n\n'
         }
 

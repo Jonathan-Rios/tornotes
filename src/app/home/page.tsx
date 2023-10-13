@@ -71,8 +71,27 @@ export default function Page() {
     <div className="flex w-full flex-1 flex-col items-center justify-start p-4 lg:w-[1280px] lg:p-8">
       <Header />
 
-      <div className="flex w-full">
-        <div className="mb-6 flex w-full items-end gap-1 ">
+      <div className="flex w-full flex-col lg:flex-row-reverse">
+        <div className="mb-4 flex w-full items-center justify-end gap-6 lg:mb-0">
+          {isConfigValid() && (
+            <Link
+              href="/register"
+              className="flex h-12 w-full items-center justify-center gap-2 rounded bg-orange-400 p-4 font-bold text-zinc-900 transition-colors hover:bg-orange-300 lg:w-[200px]"
+            >
+              <span className="text-md">Novo registro</span>
+              <PencilSimpleLine size={24} />
+            </Link>
+          )}
+
+          <button
+            onClick={() => setConfigIsVisible(!configIsVisible)}
+            className="flex h-12 items-center justify-center rounded bg-slate-600 p-4 font-bold text-zinc-500 transition-colors hover:bg-slate-700"
+          >
+            <GearSix size={24} weight="fill" className="fill-white" />
+          </button>
+        </div>
+
+        <div className="mb-4 flex w-full items-end gap-1 ">
           <TextField
             label="Pesquisar"
             placeholder="Pesquisar"
@@ -90,25 +109,6 @@ export default function Page() {
               weight="bold"
               className="h-[20px] min-h-[20px] w-[20px] min-w-[20px] fill-white"
             />
-          </button>
-        </div>
-
-        <div className="mb-6 flex w-full items-center justify-end gap-6">
-          {isConfigValid() && (
-            <Link
-              href="/register"
-              className="flex h-12 w-full items-center justify-center gap-2 rounded bg-orange-400 p-4 font-bold text-zinc-900 transition-colors hover:bg-orange-300 lg:w-[200px]"
-            >
-              <span className="text-md">Novo registro</span>
-              <PencilSimpleLine size={24} />
-            </Link>
-          )}
-
-          <button
-            onClick={() => setConfigIsVisible(!configIsVisible)}
-            className="flex h-12 items-center justify-center rounded bg-slate-600 p-4 font-bold text-zinc-500 transition-colors hover:bg-slate-700"
-          >
-            <GearSix size={24} weight="fill" className="fill-white" />
           </button>
         </div>
       </div>

@@ -1,5 +1,7 @@
 import { DataTable } from '@/components/DataTable'
-import { Eye, MagnifyingGlass } from '@phosphor-icons/react'
+import { MagnifyingGlass } from '@phosphor-icons/react'
+import { useState } from 'react'
+import ServiceDialog from './ServiceDialog'
 
 interface ServiceDataTableProps {
   data: {
@@ -8,8 +10,25 @@ interface ServiceDataTableProps {
   }
 }
 
+export interface SelectedRegister {
+  noteCode: string
+  client: string
+  serviceDescription: string
+  workedDate: string
+  materials: string
+  laborCost: string
+  total: string
+  payed: string
+  imageLink: string
+}
+
 export function ServiceDataTable({ data }: ServiceDataTableProps) {
   const { columns, rows } = data
+  const [isRegisterDialogOpen, setIsRegisterDialogOpen] =
+    useState<boolean>(true)
+
+  const [selectedRegister, setSelectedRegister] =
+    useState<SelectedRegister | null>(null)
 
   const columnTranslations = {
     date: 'Registro',
@@ -42,9 +61,16 @@ export function ServiceDataTable({ data }: ServiceDataTableProps) {
     {
       header: () => <div className="text-center">Visualizar</div>,
       accessorKey: 'actions',
-      cell: () => (
+      cell: ({ row }: { row: any }) => (
         <div className="text-center">
-          <button className="group">
+          <button
+            type="button"
+            className="group"
+            onClick={() => {
+              setIsRegisterDialogOpen(true)
+              setSelectedRegister(row.original)
+            }}
+          >
             <MagnifyingGlass
               size={24}
               weight="bold"
@@ -59,20 +85,29 @@ export function ServiceDataTable({ data }: ServiceDataTableProps) {
   return (
     <>
       {columns && rows ? (
-        <DataTable
-          columns={formattedColumns}
-          data={rows}
-          hiddenColumns={{
-            date: false,
-            materials: false,
-            laborCost: false,
-            total: false,
-            noteCode: false,
-            imageLink: false,
-            payed: false,
-          }}
-          columnTranslations={columnTranslations}
-        />
+        <>
+          <DataTable
+            columns={formattedColumns}
+            data={rows}
+            hiddenColumns={{
+              date: false,
+              materials: false,
+              laborCost: false,
+              total: false,
+              noteCode: false,
+              imageLink: false,
+              payed: false,
+            }}
+            columnTranslations={columnTranslations}
+          />
+          {!!selectedRegister && (
+            <ServiceDialog
+              isOpen={isRegisterDialogOpen}
+              setIsOpen={setIsRegisterDialogOpen}
+              selectedRegister={selectedRegister}
+            />
+          )}
+        </>
       ) : (
         <></>
       )}
